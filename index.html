@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloodLink AI — Emergency Donor Coordination Prototype</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div>
+        <h1>BloodLink AI</h1>
+        <p class="subtitle">AI-Assisted Blood Donor Discovery &amp; Emergency Coordination Platform</p>
+      </div>
+      <span class="badge">PROTOTYPE • SAMPLE DATA ONLY</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="safety-banner" role="note">
+      <strong>Clinical Boundary Notice:</strong> BloodLink AI supports communication and response tracking only. It does not verify medical eligibility, compatibility, or replace licensed blood centre screening. All donor records shown below are fictional sample data for demonstration.
+    </section>
+
+    <div class="grid">
+      <!-- Left Column: Request Form & Donor Registration -->
+      <div class="col">
+        <section class="card">
+          <h2>1. Create Emergency Blood Request</h2>
+          <form id="requestForm">
+            <div class="form-row">
+              <label>Hospital / Requester Name
+                <input type="text" id="hospitalName" placeholder="e.g., City Civil Hospital" required />
+              </label>
+              <label>Responsible Contact
+                <input type="text" id="contactPerson" placeholder="e.g., Duty Coordinator (+91-98XXXXXX10)" required />
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label>Required Blood Group
+                <select id="bloodGroup" required>
+                  <option value="O-">O-</option>
+                  <option value="O+" selected>O+</option>
+                  <option value="A-">A-</option>
+                  <option value="A+">A+</option>
+                  <option value="B-">B-</option>
+                  <option value="B+">B+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="AB+">AB+</option>
+                </select>
+              </label>
+              <label>Component
+                <select id="component" required>
+                  <option value="Whole Blood">Whole Blood</option>
+                  <option value="Packed RBC">Packed RBC (PRBC)</option>
+                  <option value="Platelets">Platelets (RDP/SDP)</option>
+                  <option value="Plasma">Fresh Frozen Plasma (FFP)</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label>Units Needed
+                <input type="number" id="units" min="1" max="10" value="2" required />
+              </label>
+              <label>Urgency Level
+                <select id="urgency" required>
+                  <option value="Critical (Within 2 hrs)">Critical (Within 2 hrs)</option>
+                  <option value="Urgent (Within 6 hrs)">Urgent (Within 6 hrs)</option>
+                  <option value="Scheduled (24 hrs)">Scheduled (24 hrs)</option>
+                </select>
+              </label>
+            </div>
+
+            <label>Hospital Zone / Location
+              <select id="locationZone" required>
+                <option value="Central Zone">Central Zone</option>
+                <option value="North Zone">North Zone</option>
+                <option value="South Zone">South Zone</option>
+                <option value="East Zone">East Zone</option>
+              </select>
+            </label>
+
+            <button type="submit" class="btn-primary">Search &amp; Prioritise Consented Donors</button>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Add Sample Volunteer Donor (Consent-Based)</h2>
+          <form id="donorForm">
+            <div class="form-row">
+              <label>Volunteer Name
+                <input type="text" id="donorName" placeholder="e.g., Rohan Verma" required />
+              </label>
+              <label>Blood Group
+                <select id="donorBloodGroup" required>
+                  <option value="O-">O-</option>
+                  <option value="O+" selected>O+</option>
+                  <option value="A-">A-</option>
+                  <option value="A+">A+</option>
+                  <option value="B-">B-</option>
+                  <option value="B+">B+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="AB+">AB+</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>Zone
+                <select id="donorZone" required>
+                  <option value="Central Zone">Central Zone</option>
+                  <option value="North Zone">North Zone</option>
+                  <option value="South Zone">South Zone</option>
+                  <option value="East Zone">East Zone</option>
+                </select>
+              </label>
+              <label>Approx. Distance (km)
+                <input type="number" id="donorDistance" min="0.5" max="50" step="0.5" value="3.5" required />
+              </label>
+            </div>
+            <label class="checkbox-label">
+              <input type="checkbox" id="donorConsent" checked required />
+              Volunteer gives explicit consent to be contacted for emergency coordination (voluntary &amp; free).
+            </label>
+            <button type="submit" class="btn-secondary">Register Sample Volunteer</button>
+          </form>
+        </section>
+      </div>
+
+      <!-- Right Column: Prioritised Matches, Response Tracker & Audit Trail -->
+      <div class="col">
+        <section class="card">
+          <div class="card-header">
+            <h2>2. Prioritised Donor Contacts &amp; Response Tracking</h2>
+            <span id="activeRequestTag" class="tag">No Active Request</span>
+          </div>
+
+          <div class="metrics-bar">
+            <div class="metric">
+              <span class="metric-val" id="statMatched">0</span>
+              <span class="metric-lbl">Matched</span>
+            </div>
+            <div class="metric">
+              <span class="metric-val" id="statPending">0</span>
+              <span class="metric-lbl">Pending</span>
+            </div>
+            <div class="metric">
+              <span class="metric-val" id="statAccepted">0</span>
+              <span class="metric-lbl">Accepted</span>
+            </div>
+            <div class="metric">
+              <span class="metric-val" id="statReferred">0</span>
+              <span class="metric-lbl">Directed to Centre</span>
+            </div>
+          </div>
+
+          <div id="donorList" class="donor-list">
+            <p class="empty-state">Submit an emergency blood request on the left to filter, rank, and coordinate with consented sample volunteers.</p>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>3. Coordination Audit Log</h2>
+          <ul id="auditLog" class="audit-log">
+            <li>System initialized with fictional sample donor records.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>BloodLink AI — BUiLDX Health-Tech Hackathon Prototype • Voluntary &amp; Free Donor Participation • Licensed Blood Centre Screening Required</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
