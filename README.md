@@ -44,7 +44,7 @@ BloodLink AI replaces scattered outreach with one structured workflow:
 - Licensed Blood Centre: Handles donor screening, testing, compatibility, and blood issue.
 
 ## Team Members and Contributions
-- Shivam Kumar — Project coordination, prototype setup, and submission documentation.
-- Susmita Chanda — Solution workflow, safety/consent framing, and presentation support.
-- Suhani Joshi — Problem analysis, coordination flow, and presentation support.
-- Anushka Deshmukh — Clinical boundaries, pilot/evaluation structure, and presentation support.
+- **Shivam Kumar (Team Lead)** — Team leadership, project coordination, prototype setup, and submission documentation.
+- **Susmita Chanda** — Solution workflow, safety/consent framing, and presentation support.
+- **Suhani Joshi** — Problem analysis, coordination flow, and presentation support.
+- **Anushka Deshmukh** — Clinical boundaries, pilot/evaluation structure, and presentation support.
